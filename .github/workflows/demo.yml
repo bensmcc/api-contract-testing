@@ -20,7 +20,7 @@ jobs:
 
             - run: mkdir docs
 
-            - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs/docs.html
+            - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs/index.html
 
             - name: deploy to pages
               uses: rossjrw/pr-preview-action@v1
