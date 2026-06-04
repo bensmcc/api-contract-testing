@@ -18,6 +18,8 @@ jobs:
               with:
                   node-version: 24
 
+            - run: mkdir docs
+
             - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs/docs.html
 
             - name: deploy to pages
