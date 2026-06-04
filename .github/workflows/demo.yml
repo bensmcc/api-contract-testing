@@ -1,15 +1,26 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [pull_request]
+name: publish docs to pages
+
+on:
+    pull_request:
+        types:
+            - opened
+            - reopened
+            - synchronize
+            - closed
+
 jobs:
-  publish-to-pages:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
+    publish-to-pages:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v6
 
-      - uses: actions/setup-node@v6.4.0
-        with:
-          node-version: 24
+            - uses: actions/setup-node@v6.4.0
+              with:
+                  node-version: 24
 
-      - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs.html
-        
+            - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs/docs.html
+
+            - name: deploy to pages
+              uses: rossjrw/pr-preview-action@v1
+              with:
+                source-dir: ./docs/
