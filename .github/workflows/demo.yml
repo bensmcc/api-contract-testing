@@ -11,5 +11,5 @@ jobs:
         with:
           node-version: 24
 
-      - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger
+      - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs.html
         
