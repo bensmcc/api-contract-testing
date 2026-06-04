@@ -18,7 +18,7 @@ jobs:
               with:
                   node-version: 24
 
-            - run: mkdir docs
+            - run: mkdir tmp
 
             - run: npx openapi-generate-html -i reference/openapi.yml --ui stoplight -o tmp/index.html
 
