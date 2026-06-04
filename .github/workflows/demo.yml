@@ -27,3 +27,4 @@ jobs:
               with:
                 source-dir: ./docs/
                 qr-code: false
+                wait-for-pages-deployment: true
