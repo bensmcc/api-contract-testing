@@ -6,8 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=search" />
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.26.2/swagger-ui.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@stoplight/elements/styles.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.9/dist/css/autoComplete.02.min.css">
+  <script src="https://unpkg.com/@stoplight/elements/web-components.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.9/dist/autoComplete.min.js"></script>
   <style>#search-button {
   position: fixed;
@@ -130,51 +131,53 @@
     color: #888;
   }
 }</style>
-  <style>/* https://github.com/swagger-api/swagger-ui/issues/5327#issuecomment-742375520 */
-html[data-theme="dark"] {
-  body {
-    background: black;
+  <style>.elements-api {
+  > div {
+    height: 100vh !important;
   }
+}
 
-  .swagger-ui {
-    filter: invert(88%) hue-rotate(180deg);
+[data-theme=dark] {
+  .sl-code-highlight {
+    .token {
+      color: #fff !important;
+    }
   }
-
-  .swagger-ui .microlight {
-      filter: invert(100%) hue-rotate(180deg);
+  .sl-elements-api {
+    background-color: var(--color-canvas-pure);
   }
 }
 
 .method-get {
-  background-color: #61affe;
+  background-color: #05b870;
 }
 
 .method-post {
-  background-color: #49cc90;
+  background-color: #19abff;
 }
 
 .method-put {
-  background-color: #fca130;
+  background-color: #f46d2a;
 }
 
 .method-patch {
-  background-color: #50e3c2;
+  background-color: #f46d2a;
 }
 
 .method-delete {
-  background-color: #f93e3e;
+  background-color: #f05151;
 }
 
 .method-head {
-  background-color: #9012fe;
+  background-color: rgb(144, 97, 249);
 }
 
 .method-options {
-  background-color: #0d5aa7;
+  background-color: rgb(13, 90, 167);
 }
 
 .method-trace {
-  background-color: #000;
+  background-color: rgb(13, 11, 40);
 }</style>
   <script>window.apiDocs = {"openapi":"3.0.0","info":{"title":"Simple API overview","version":"2.0.0"},"paths":{"/":{"get":{"operationId":"listVersionsv2","summary":"List API versions","responses":{"200":{"description":"200 response","content":{"application/json":{"examples":{"foo":{"value":{"versions":[{"status":"CURRENT","updated":"2011-01-21T11:33:21Z","id":"v2.0","links":[{"href":"http://127.0.0.1:8774/v2/","rel":"self"}]},{"status":"EXPERIMENTAL","updated":"2013-07-23T11:33:21Z","id":"v3.0","links":[{"href":"http://127.0.0.1:8774/v3/","rel":"self"}]}]}}}}}},"300":{"description":"300 response","content":{"application/json":{"examples":{"foo":{"value":{"versions":[{"status":"CURRENT","updated":"2011-01-21T11:33:21Z","id":"v2.0","links":[{"href":"http://127.0.0.1:8774/v2/","rel":"self"}]},{"status":"EXPERIMENTAL","updated":"2013-07-23T11:33:21Z","id":"v3.0","links":[{"href":"http://127.0.0.1:8774/v3/","rel":"self"}]}]}}}}}}}}},"/v2":{"get":{"operationId":"getVersionDetailsv2","summary":"Show API version details","responses":{"200":{"description":"200 response","content":{"application/json":{"examples":{"foo":{"value":{"version":{"status":"CURRENT","updated":"2011-01-21T11:33:21Z","media-types":[{"base":"application/xml","type":"application/vnd.openstack.compute+xml;version=2"},{"base":"application/json","type":"application/vnd.openstack.compute+json;version=2"}],"id":"v2.0","links":[{"href":"http://127.0.0.1:8774/v2/","rel":"self"},{"href":"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf","type":"application/pdf","rel":"describedby"},{"href":"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl","type":"application/vnd.sun.wadl+xml","rel":"describedby"},{"href":"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl","type":"application/vnd.sun.wadl+xml","rel":"describedby"}]}}}}}}},"203":{"description":"203 response","content":{"application/json":{"examples":{"foo":{"value":{"version":{"status":"CURRENT","updated":"2011-01-21T11:33:21Z","media-types":[{"base":"application/xml","type":"application/vnd.openstack.compute+xml;version=2"},{"base":"application/json","type":"application/vnd.openstack.compute+json;version=2"}],"id":"v2.0","links":[{"href":"http://23.253.228.211:8774/v2/","rel":"self"},{"href":"http://docs.openstack.org/api/openstack-compute/2/os-compute-devguide-2.pdf","type":"application/pdf","rel":"describedby"},{"href":"http://docs.openstack.org/api/openstack-compute/2/wadl/os-compute-2.wadl","type":"application/vnd.sun.wadl+xml","rel":"describedby"}]}}}}}}}}}}}}</script>
 </head>
@@ -186,8 +189,7 @@ html[data-theme="dark"] {
   <dialog id="search-dialog">
     <input id="auto-complete" autocomplete="off">
   </dialog>
-  <div id="swagger-ui"></div>
-  <script src="https://unpkg.com/swagger-ui-dist@5.26.2/swagger-ui-bundle.js" crossorigin></script>
+  <elements-api router="hash" class="elements-api"></elements-api>
   <script>// eslint-disable-next-line no-unused-vars
 class SearchDialog {
   dialog
@@ -296,13 +298,10 @@ const modifierKeyPrefix =
     ? '⌘' // command key
     : '^' // control key
 
-/* ref. https://swagger.io/docs/open-source-tools/swagger-ui/usage/installation/ */
-window.onload = () => {
-  window.ui = SwaggerUIBundle({
-    spec: window.apiDocs,
-    dom_id: '#swagger-ui',
-    deepLinking: true,
-  })
+/* ref. https://github.com/stoplightio/elements/blob/main/docs/getting-started/elements/html.md#examples */
+;(async () => {
+  const docs = document.querySelector('.elements-api')
+  docs.apiDescriptionDocument = window.apiDocs
 
   const searchButton = document.querySelector('#search-button')
   searchButton.addEventListener('click', () => searchDialog.show())
@@ -316,24 +315,11 @@ window.onload = () => {
     window.apiDocs,
   )
   searchDialog.on('select', (selection) => {
-    const tag = selection.tag
     const operationId = selection.operationId
     const url = new URL(location.href)
-    url.hash = `#/${tag}/${operationId}`
+    url.hash = `#/operations/${operationId}`
     location.href = url.toString()
     searchDialog.hide()
-
-    const opblock = document.querySelector(`#operations-${tag}-${operationId}`)
-    opblock.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    })
-    const opblockButton = opblock.querySelector(
-      '.opblock-summary-control[aria-expanded="false"]',
-    )
-    if (opblockButton) {
-      opblockButton.click()
-    }
   })
 
   document.addEventListener('keydown', function (e) {
@@ -343,7 +329,7 @@ window.onload = () => {
       e.preventDefault()
     }
   })
-}
+})()
 </script>
 </body>
 </html>
