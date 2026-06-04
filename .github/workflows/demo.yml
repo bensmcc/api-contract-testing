@@ -18,13 +18,13 @@ jobs:
               with:
                   node-version: 24
 
-            - run: mkdir docs
+            - run: mkdir tmp
 
-            - run: npx openapi-generate-html -i reference/openapi.yml --ui swagger -o docs/docs.html
+            - run: npx openapi-generate-html -i reference/openapi.yml --ui stoplight -o tmp/index.html
 
             - name: deploy to pages
               uses: rossjrw/pr-preview-action@v1
               with:
-                source-dir: ./docs/
+                source-dir: ./tmp/
                 qr-code: false
                 wait-for-pages-deployment: true
